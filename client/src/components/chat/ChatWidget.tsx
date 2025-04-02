@@ -11,7 +11,10 @@ import {
   Send, 
   X, 
   RefreshCw,
-  Mic
+  Mic,
+  MessageSquare,
+  HelpCircle,
+  ThumbsUp
 } from 'lucide-react';
 
 // TypeScript interfaces for Speech Recognition
@@ -93,6 +96,8 @@ const ChatWidget = () => {
   const [input, setInput] = useState('');
   const [showSources, setShowSources] = useState<{[key: string]: boolean}>({});
   const [isListening, setIsListening] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+  const [showTerms, setShowTerms] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
@@ -158,6 +163,19 @@ const ChatWidget = () => {
     setMessages([initialMessage]);
     setInput('');
     setShowSources({});
+  };
+  
+  const handleAgreeToTerms = () => {
+    setTermsAgreed(true);
+    setShowTerms(false);
+  };
+  
+  const handleAboutChat = () => {
+    alert('StatBot is powered by AI and provides information about the National Convention on Statistics 2025. It uses the official event documentation to answer your questions accurately.');
+  };
+  
+  const handleFeedback = () => {
+    alert('Thank you for your interest in providing feedback. The feedback feature will be available soon.');
   };
   
   const toggleVoiceInput = () => {
@@ -270,7 +288,7 @@ const ChatWidget = () => {
           <div className="p-4 bg-gradient-to-r from-[#4C9F38] to-[#00689D] flex justify-between items-center flex-shrink-0 shadow-sm rounded-t-2xl">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center shadow-sm">
-                <Database className="w-4 h-4 text-white" />
+                <MessageSquare className="w-4 h-4 text-white" />
               </div>
               <div>
                 <h3 className="text-white font-medium">StatBot Assistant</h3>
@@ -382,51 +400,104 @@ const ChatWidget = () => {
             </div>
           )}
           
-          {/* Input Form */}
-          <div className="p-4 border-t border-border flex-shrink-0 bg-background">
-            <form onSubmit={handleSendMessage} className="relative">
-              <input 
-                ref={inputRef}
-                type="text" 
-                placeholder="Ask about the convention..." 
-                className="w-full bg-muted border-none rounded-full px-4 py-3 pr-24 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none text-foreground"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={isLoading || isListening}
-              />
-              
-              {/* Voice Input Button */}
-              <button 
-                type="button"
-                onClick={toggleVoiceInput}
-                className={`absolute right-12 top-1/2 -translate-y-1/2 ${
-                  isListening 
-                    ? 'bg-[#E5243B] text-white animate-pulse' 
-                    : 'bg-muted-foreground/20 text-muted-foreground hover:bg-muted-foreground/30'
-                } rounded-full w-9 h-9 flex items-center justify-center transition-colors duration-200 shadow-sm`}
-                disabled={isLoading}
-                aria-label={isListening ? "Stop voice input" : "Start voice input"}
-                title={isListening ? "Stop voice input" : "Start voice input"}
-              >
-                <Mic className="w-4 h-4" />
-              </button>
-              
-              {/* Send Button */}
-              <button 
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00689D] text-white rounded-full w-9 h-9 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md disabled:bg-muted-foreground/30 disabled:shadow-none"
-                disabled={isLoading || !input.trim() || isListening}
-              >
-                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-              </button>
-            </form>
-            
-            {isListening && (
-              <div className="text-xs text-center mt-2 text-[#E5243B] font-medium animate-pulse">
-                Listening... Speak now
+          {/* Terms Agreement */}
+          {!termsAgreed && showTerms ? (
+            <div className="p-4 border-t border-border flex-shrink-0 bg-background">
+              <div className="bg-muted/30 p-3 rounded-lg mb-3">
+                <p className="text-sm text-foreground mb-3">
+                  To use StatBot, please read and agree to the following terms:
+                </p>
+                <ul className="text-xs text-muted-foreground list-disc pl-4 mb-3 space-y-1">
+                  <li>The AI assistant provides information about the NCS 2025 event</li>
+                  <li>Responses are generated from the event's knowledge base</li>
+                  <li>Information is for reference only and may be updated</li>
+                  <li>No personal data is stored beyond this session</li>
+                </ul>
+                <button 
+                  onClick={handleAgreeToTerms}
+                  className="w-full bg-[#00689D] text-white rounded-md py-2 mt-2 text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#00689D]/90 transition-colors"
+                >
+                  <Check className="w-4 h-4" />
+                  I agree to these terms
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            /* Input Form */
+            <div className="p-4 border-t border-border flex-shrink-0 bg-background">
+              <form onSubmit={handleSendMessage} className="relative">
+                <input 
+                  ref={inputRef}
+                  type="text" 
+                  placeholder="Ask about the convention..." 
+                  className="w-full bg-muted border-none rounded-full px-4 py-3 pr-24 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none text-foreground"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  disabled={isLoading || isListening || !termsAgreed}
+                />
+                
+                {/* Voice Input Button */}
+                <button 
+                  type="button"
+                  onClick={toggleVoiceInput}
+                  className={`absolute right-12 top-1/2 -translate-y-1/2 ${
+                    isListening 
+                      ? 'bg-[#E5243B] text-white animate-pulse' 
+                      : 'bg-muted-foreground/20 text-muted-foreground hover:bg-muted-foreground/30'
+                  } rounded-full w-9 h-9 flex items-center justify-center transition-colors duration-200 shadow-sm`}
+                  disabled={isLoading || !termsAgreed}
+                  aria-label={isListening ? "Stop voice input" : "Start voice input"}
+                  title={isListening ? "Stop voice input" : "Start voice input"}
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+                
+                {/* Send Button */}
+                <button 
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00689D] text-white rounded-full w-9 h-9 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md disabled:bg-muted-foreground/30 disabled:shadow-none"
+                  disabled={isLoading || !input.trim() || isListening || !termsAgreed}
+                >
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                </button>
+              </form>
+              
+              {isListening && (
+                <div className="text-xs text-center mt-2 text-[#E5243B] font-medium animate-pulse">
+                  Listening... Speak now
+                </div>
+              )}
+              
+              {/* About and Feedback buttons */}
+              <div className="flex items-center justify-between mt-3">
+                <div className="flex gap-3">
+                  <button 
+                    onClick={handleAboutChat}
+                    className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+                  >
+                    <HelpCircle className="w-3 h-3" />
+                    About
+                  </button>
+                  <button 
+                    onClick={handleFeedback}
+                    className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+                  >
+                    <ThumbsUp className="w-3 h-3" />
+                    Feedback
+                  </button>
+                </div>
+                {!termsAgreed && (
+                  <button 
+                    onClick={handleAgreeToTerms}
+                    className="text-xs text-[#00689D] hover:text-[#00689D]/90 flex items-center gap-1 transition-colors"
+                  >
+                    <Check className="w-3 h-3" />
+                    Agree to terms
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <button 
@@ -434,7 +505,7 @@ const ChatWidget = () => {
           className="bg-gradient-to-r from-[#4C9F38] to-[#00689D] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
           aria-label="Open chat"
         >
-          <Database className="w-6 h-6" />
+          <MessageSquare className="w-6 h-6" />
         </button>
       )}
     </div>

@@ -56,7 +56,6 @@ const Header = () => {
             <a href="#about" className="text-foreground/80 hover:text-[#4C9F38] font-medium text-sm transition-colors duration-200">About</a>
             <a href="#speakers" className="text-foreground/80 hover:text-[#4C9F38] font-medium text-sm transition-colors duration-200">Speakers</a>
             <a href="#agenda" className="text-foreground/80 hover:text-[#4C9F38] font-medium text-sm transition-colors duration-200">Agenda</a>
-            <a href="#visualizations" className="text-foreground/80 hover:text-[#4C9F38] font-medium text-sm transition-colors duration-200">Data Insights</a>
             <a href="#resources" className="text-foreground/80 hover:text-[#4C9F38] font-medium text-sm transition-colors duration-200">Resources</a>
           </nav>
 
@@ -100,7 +99,6 @@ const Header = () => {
           <a href="#about" className="block text-foreground/80 hover:text-[#4C9F38] font-medium text-sm py-2 transition-colors duration-200" onClick={() => setIsMobileMenuOpen(false)}>About</a>
           <a href="#speakers" className="block text-foreground/80 hover:text-[#4C9F38] font-medium text-sm py-2 transition-colors duration-200" onClick={() => setIsMobileMenuOpen(false)}>Speakers</a>
           <a href="#agenda" className="block text-foreground/80 hover:text-[#4C9F38] font-medium text-sm py-2 transition-colors duration-200" onClick={() => setIsMobileMenuOpen(false)}>Agenda</a>
-          <a href="#visualizations" className="block text-foreground/80 hover:text-[#4C9F38] font-medium text-sm py-2 transition-colors duration-200" onClick={() => setIsMobileMenuOpen(false)}>Data Insights</a>
           <a href="#resources" className="block text-foreground/80 hover:text-[#4C9F38] font-medium text-sm py-2 transition-colors duration-200" onClick={() => setIsMobileMenuOpen(false)}>Resources</a>
           
           <div className="flex items-center space-x-4 pt-2 border-t border-border">

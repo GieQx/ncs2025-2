@@ -4,10 +4,7 @@ import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Speakers from "@/components/home/Speakers";
 import Agenda from "@/components/home/Agenda";
-import DataVisualization from "@/components/home/DataVisualization";
 import Resources from "@/components/home/Resources";
-import Networking from "@/components/home/Networking";
-import Registration from "@/components/home/Registration";
 import { useEffect } from "react";
 
 const HomePage = () => {
@@ -35,16 +32,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="font-sans text-neutral-800 bg-white">
+    <div className="font-sans text-foreground bg-background">
       <Header />
       <Hero />
       <About />
       <Speakers />
       <Agenda />
-      <DataVisualization />
       <Resources />
-      <Networking />
-      <Registration />
       <Footer />
     </div>
   );
