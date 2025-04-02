@@ -15,8 +15,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Message is required and must be a string" });
       }
       
-      const reply = await chatService.getChatResponse(message);
-      return res.json({ reply });
+      const response = await chatService.getChatResponse(message);
+      return res.json(response); // Returns {reply: string, sources?: Source[]}
     } catch (error) {
       console.error("Error in chat endpoint:", error);
       return res.status(500).json({ error: "Failed to get chat response" });
