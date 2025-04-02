@@ -5,6 +5,8 @@ import About from "@/components/home/About";
 import Speakers from "@/components/home/Speakers";
 import Agenda from "@/components/home/Agenda";
 import Resources from "@/components/home/Resources";
+import MarqueeSection from "@/components/home/MarqueeSection";
+import VirtualTour from "@/components/home/VirtualTour";
 import { useEffect } from "react";
 
 const HomePage = () => {
@@ -35,9 +37,11 @@ const HomePage = () => {
     <div className="font-sans text-foreground bg-background">
       <Header />
       <Hero />
+      <MarqueeSection />
       <About />
       <Speakers />
       <Agenda />
+      <VirtualTour />
       <Resources />
       <Footer />
     </div>

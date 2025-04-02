@@ -1,5 +1,7 @@
 import { useCountdown } from "@/hooks/useCountdown";
 import { useState } from "react";
+import { ArrowRight, Play, CalendarDays, Users, Mic } from "lucide-react";
+import ParticleBackground from "@/components/ui/particle-background";
 
 // SDG Colors - Sustainable Development Goals
 const SDG_COLORS = {
@@ -22,9 +24,12 @@ const Hero = () => {
 
   return (
     <section className="pt-32 pb-20 px-4 relative overflow-hidden text-white">
+      {/* Particle Background */}
+      <ParticleBackground className="opacity-30" />
+      
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-[#00689D]/30 to-black/70 z-10"></div>
         <video
           className="w-full h-full object-cover"
           autoPlay
@@ -34,6 +39,11 @@ const Hero = () => {
           poster="https://via.placeholder.com/1920x1080?text=Convention+Video+Placeholder"
         >
           <source 
+            src="https://static.videezy.com/system/resources/previews/000/051/528/original/data_analytics.mp4" 
+            type="video/mp4" 
+          />
+          {/* Fallback source */}
+          <source 
             src="https://static.videezy.com/system/resources/previews/000/043/143/original/F-DATAP0016.mp4" 
             type="video/mp4" 
           />
@@ -42,7 +52,7 @@ const Hero = () => {
       </div>
       
       {/* Overlay patterns */}
-      <div className="absolute inset-0 opacity-40 z-10 mix-blend-soft-light" style={{
+      <div className="absolute inset-0 opacity-20 z-10 mix-blend-soft-light" style={{
         backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23F1F1F1'/%3E%3C/svg%3E\")",
         backgroundRepeat: "repeat"
       }}></div>
@@ -51,7 +61,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-flex items-center px-3 py-1 mb-6 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium">
-              <i className="fas fa-calendar-alt mr-2" style={{color: SDG_COLORS.highlight}}></i>
+              <CalendarDays className="w-4 h-4 mr-2 text-[#FCC30B]" />
               <span>September 15-17, 2025</span>
             </div>
             
@@ -67,14 +77,14 @@ const Hero = () => {
               <a href="https://example.com/register" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-[#4C9F38] to-[#00689D] text-white rounded-full py-3 px-8 text-base font-medium hover:shadow-lg transition-shadow duration-300 flex items-center justify-center">
                   <span>Register Now</span>
-                  <i className="fas fa-arrow-right ml-2"></i>
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </button>
               </a>
               <button 
                 onClick={handleStartTour}
                 className="bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-full py-3 px-8 text-base font-medium hover:bg-white/20 transition-colors duration-300 flex items-center justify-center"
               >
-                <i className="fas fa-vr-cardboard mr-2"></i>
+                <Play className="mr-2 w-4 h-4" />
                 <span>Start 3D Tour</span>
               </button>
             </div>
@@ -129,7 +139,7 @@ const Hero = () => {
             <div className="absolute -bottom-10 -left-10 bg-black/60 backdrop-blur-md rounded-xl shadow-lg p-4 w-48 border border-white/20">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#4C9F38]/20 flex items-center justify-center text-[#4C9F38]">
-                  <i className="fas fa-users"></i>
+                  <Users className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-xs text-white/80">Attendees</p>
@@ -141,7 +151,7 @@ const Hero = () => {
             <div className="absolute -top-6 -right-6 bg-black/60 backdrop-blur-md rounded-xl shadow-lg p-4 w-48 border border-white/20">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#00689D]/20 flex items-center justify-center text-[#00689D]">
-                  <i className="fas fa-microphone"></i>
+                  <Mic className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-xs text-white/80">Speakers</p>
