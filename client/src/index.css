@@ -3,11 +3,171 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    
+    --primary: 207 70% 30%; /* SDG Blue #00689D */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 120 40% 40%; /* SDG Green #4C9F38 */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --accent: 26 98% 57%; /* SDG Orange #FD6925 */
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --sdg-highlight: 44 98% 52%; /* SDG Yellow #FCC30B */
+    
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --ring: 215 20.2% 65.1%;
+    
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    
+    --accent: 26 98% 57%; /* SDG Orange #FD6925 */
+    --accent-foreground: 210 40% 98%;
+    
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+    
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    
+    --primary: 207 70% 35%; /* SDG Blue #00689D, slightly brightened */
+    --primary-foreground: 222.2 47.4% 1.2%;
+    
+    --secondary: 120 40% 45%; /* SDG Green #4C9F38, slightly brightened */
+    --secondary-foreground: 210 40% 98%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --ring: 216 34% 17%;
+    
+    --radius: 0.5rem;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground transition-colors duration-300;
+  }
+  
+  /* Utility classes for SDG colors */
+  .bg-sdg-blue {
+    background-color: #00689D;
+  }
+  
+  .bg-sdg-green {
+    background-color: #4C9F38;
+  }
+  
+  .bg-sdg-orange {
+    background-color: #FD6925;
+  }
+  
+  .bg-sdg-yellow {
+    background-color: #FCC30B;
+  }
+  
+  .bg-sdg-red {
+    background-color: #E5243B;
+  }
+  
+  .bg-sdg-burgundy {
+    background-color: #8F1838;
+  }
+  
+  .text-sdg-blue {
+    color: #00689D;
+  }
+  
+  .text-sdg-green {
+    color: #4C9F38;
+  }
+  
+  .text-sdg-orange {
+    color: #FD6925;
+  }
+  
+  .text-sdg-yellow {
+    color: #FCC30B;
+  }
+  
+  .text-sdg-red {
+    color: #E5243B;
+  }
+  
+  .text-sdg-burgundy {
+    color: #8F1838;
+  }
+  
+  /* Accessibility Styles */
+  .high-contrast {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --primary: 60 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 120 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 0 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+  }
+  
+  .dyslexic-font {
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.2em;
+    line-height: 1.8;
+    word-spacing: 0.3em;
+  }
+  
+  /* Cursor sizes */
+  [data-cursor="large"] * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 20 16-16'/%3E%3Cpath d='M8.5 9.5 13 4'/%3E%3Cpath d='m4 20 5-5'/%3E%3Cpath d='M4 15h2v5H4z'/%3E%3Cpath d='M9 20v-5h5'/%3E%3C/svg%3E"), auto;
+  }
+  
+  [data-cursor="extra-large"] * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 20 16-16'/%3E%3Cpath d='M8.5 9.5 13 4'/%3E%3Cpath d='m4 20 5-5'/%3E%3Cpath d='M4 15h2v5H4z'/%3E%3Cpath d='M9 20v-5h5'/%3E%3C/svg%3E"), auto;
+  }
+  
+  /* Animation for accessibility button pulse */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 2s infinite ease-in-out;
   }
 }

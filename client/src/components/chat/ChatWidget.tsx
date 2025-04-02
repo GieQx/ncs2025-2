@@ -1,6 +1,58 @@
 import { useState, useRef, useEffect } from 'react';
 import { apiRequest } from '@/lib/queryClient';
-import { AlertCircle, Check, ChevronDown, ChevronUp, Database, Lightbulb, Loader2, Send, X } from 'lucide-react';
+import { 
+  AlertCircle, 
+  Check, 
+  ChevronDown, 
+  ChevronUp, 
+  Database, 
+  Lightbulb, 
+  Loader2, 
+  Send, 
+  X, 
+  RefreshCw,
+  Mic
+} from 'lucide-react';
+
+// TypeScript interfaces for Speech Recognition
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionResult {
+  readonly length: number;
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal: boolean;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start(): void;
+  stop(): void;
+  abort(): void;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: Event) => void) | null;
+  onend: ((event: Event) => void) | null;
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition: new () => SpeechRecognition;
+    webkitSpeechRecognition: new () => SpeechRecognition;
+  }
+}
 
 // SDG Colors - Sustainable Development Goals
 const SDG_COLORS = {
@@ -40,8 +92,45 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState('');
   const [showSources, setShowSources] = useState<{[key: string]: boolean}>({});
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Speech recognition setup
+  const recognition = useRef<SpeechRecognition | null>(null);
+  
+  useEffect(() => {
+    // Initialize speech recognition if available
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition.current = new SpeechRecognition();
+      recognition.current.continuous = false;
+      recognition.current.interimResults = false;
+      
+      recognition.current.onresult = (event: SpeechRecognitionEvent) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(prev => prev + ' ' + transcript.trim());
+        setIsListening(false);
+      };
+      
+      recognition.current.onerror = () => {
+        setIsListening(false);
+      };
+      
+      recognition.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+    
+    return () => {
+      // Clean up
+      if (recognition.current) {
+        recognition.current.onresult = null;
+        recognition.current.onerror = null;
+        recognition.current.onend = null;
+      }
+    };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -63,6 +152,32 @@ const ChatWidget = () => {
       ...prev,
       [messageId]: !prev[messageId]
     }));
+  };
+  
+  const handleResetChat = () => {
+    setMessages([initialMessage]);
+    setInput('');
+    setShowSources({});
+  };
+  
+  const toggleVoiceInput = () => {
+    if (isListening) {
+      if (recognition.current) {
+        recognition.current.stop();
+      }
+      setIsListening(false);
+    } else {
+      if (recognition.current) {
+        try {
+          recognition.current.start();
+          setIsListening(true);
+        } catch (error) {
+          console.error('Error starting speech recognition:', error);
+        }
+      } else {
+        alert('Speech recognition is not supported in your browser.');
+      }
+    }
   };
 
   const handleSendMessage = async (e: React.FormEvent) => {
@@ -162,13 +277,24 @@ const ChatWidget = () => {
                 <p className="text-white/70 text-xs">Powered by NCS 2025 Knowledge Base</p>
               </div>
             </div>
-            <button 
-              onClick={handleToggleChat}
-              className="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
-              aria-label="Minimize chat"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Reset Chat Button */}
+              <button 
+                onClick={handleResetChat}
+                className="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                aria-label="Reset conversation"
+                title="Reset conversation"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={handleToggleChat}
+                className="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                aria-label="Minimize chat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
           
           {/* Messages */}
@@ -263,19 +389,43 @@ const ChatWidget = () => {
                 ref={inputRef}
                 type="text" 
                 placeholder="Ask about the convention..." 
-                className="w-full bg-gray-100 border-none rounded-full px-4 py-3 pr-12 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none"
+                className="w-full bg-gray-100 border-none rounded-full px-4 py-3 pr-24 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                disabled={isLoading}
+                disabled={isLoading || isListening}
               />
+              
+              {/* Voice Input Button */}
+              <button 
+                type="button"
+                onClick={toggleVoiceInput}
+                className={`absolute right-12 top-1/2 -translate-y-1/2 ${
+                  isListening 
+                    ? 'bg-[#E5243B] text-white animate-pulse' 
+                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                } rounded-full w-8 h-8 flex items-center justify-center transition-colors`}
+                disabled={isLoading}
+                aria-label={isListening ? "Stop voice input" : "Start voice input"}
+                title={isListening ? "Stop voice input" : "Start voice input"}
+              >
+                <Mic className="w-4 h-4" />
+              </button>
+              
+              {/* Send Button */}
               <button 
                 type="submit"
                 className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00689D] text-white rounded-full w-8 h-8 flex items-center justify-center disabled:bg-gray-300"
-                disabled={isLoading || !input.trim()}
+                disabled={isLoading || !input.trim() || isListening}
               >
                 {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
               </button>
             </form>
+            
+            {isListening && (
+              <div className="text-xs text-center mt-2 text-[#E5243B] font-medium animate-pulse">
+                Listening... Speak now
+              </div>
+            )}
           </div>
         </div>
       ) : (
