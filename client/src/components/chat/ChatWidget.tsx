@@ -60,8 +60,13 @@ const ChatWidget = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   // Always show terms until agreed
   const [showTerms, setShowTerms] = useState(true);
+  const [showChatButton, setShowChatButton] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setShowChatButton(termsAgreed);
+  }, [termsAgreed]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -193,7 +198,7 @@ const ChatWidget = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {isOpen ? (
+      {showChatButton && (isOpen ? (
         <div className="bg-background rounded-2xl shadow-xl w-80 md:w-96 transition-all transform origin-bottom-right border border-border overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 100px)' }}>
           {/* Header - Material UI Style */}
           <div className="p-4 bg-gradient-to-r from-[#4C9F38] to-[#00689D] flex justify-between items-center flex-shrink-0 shadow-sm rounded-t-2xl">
@@ -400,7 +405,7 @@ const ChatWidget = () => {
         >
           <MessageSquare className="w-6 h-6" />
         </button>
-      )}
+      ))}
     </div>
   );
 };
