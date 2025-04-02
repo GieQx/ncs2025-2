@@ -58,6 +58,7 @@ const ChatWidget = () => {
   const [input, setInput] = useState('');
   const [showSources, setShowSources] = useState<{[key: string]: boolean}>({});
   const [termsAgreed, setTermsAgreed] = useState(false);
+  // Always show terms until agreed
   const [showTerms, setShowTerms] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -75,6 +76,10 @@ const ChatWidget = () => {
 
   const handleToggleChat = () => {
     setIsOpen(!isOpen);
+    // Make sure terms are shown when chat is opened if not agreed yet
+    if (!termsAgreed) {
+      setShowTerms(true);
+    }
   };
 
   const handleToggleSources = (messageId: string) => {
@@ -308,11 +313,15 @@ const ChatWidget = () => {
           {/* Terms Agreement */}
           {!termsAgreed && showTerms ? (
             <div className="p-4 border-t border-border flex-shrink-0 bg-background">
-              <div className="bg-muted/30 p-3 rounded-lg mb-3">
+              <div className="bg-gradient-to-r from-[#4C9F38]/20 to-[#00689D]/20 p-4 rounded-lg mb-3 border border-[#00689D]/30">
+                <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-[#FD6925]" />
+                  Terms of Use Agreement Required
+                </h4>
                 <p className="text-sm text-foreground mb-3">
-                  To use StatBot, please read and agree to the following terms:
+                  To use the StatBot assistant, please read and agree to the following terms:
                 </p>
-                <ul className="text-xs text-muted-foreground list-disc pl-4 mb-3 space-y-1">
+                <ul className="text-xs text-muted-foreground list-disc pl-4 mb-4 space-y-2">
                   <li>The AI assistant provides information about the NCS 2025 event</li>
                   <li>Responses are generated from the event's knowledge base</li>
                   <li>Information is for reference only and may be updated</li>
@@ -320,7 +329,7 @@ const ChatWidget = () => {
                 </ul>
                 <button 
                   onClick={handleAgreeToTerms}
-                  className="w-full bg-[#00689D] text-white rounded-md py-2 mt-2 text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#00689D]/90 transition-colors"
+                  className="w-full bg-[#00689D] text-white rounded-md py-3 mt-2 text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#00689D]/90 transition-colors shadow-md"
                 >
                   <Check className="w-4 h-4" />
                   I agree to these terms

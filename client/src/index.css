@@ -76,71 +76,73 @@
 
 @layer base {
   :root {
-    /* Material UI inspired light theme with SDG colors */
+    /* Flat SDG colors for light theme with improved contrast */
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --foreground: 222 47% 11%;
     
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 25% 40%;  /* Darkened for better contrast on light backgrounds */
     
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 222 47% 11%;
     
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
     
     --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card-foreground: 222 47% 11%;
     
-    --primary: 207 70% 30%; /* SDG Blue #00689D */
-    --primary-foreground: 210 40% 98%;
+    --primary: 201 100% 31%; /* SDG Blue #00689D */
+    --primary-foreground: 0 0% 100%;
     
-    --secondary: 120 40% 40%; /* SDG Green #4C9F38 */
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 120 47% 32%; /* SDG Green #4C9F38 */
+    --secondary-foreground: 0 0% 100%;  /* White text on green for better readability */
     
     --accent: 26 98% 57%; /* SDG Orange #FD6925 */
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 0 0% 100%;  /* White text on orange for better readability */
     
     --sdg-highlight: 44 98% 52%; /* SDG Yellow #FCC30B */
+    --sdg-red: 352 78% 52%; /* SDG Red #E5243B */
+    --sdg-burgundy: 340 70% 33%; /* SDG Burgundy #8F1838 */
     
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 45%;
+    --destructive-foreground: 0 0% 100%;
     
-    --ring: 215 20.2% 65.1%;
+    --ring: 215 20% 65%;
     
     --radius: 0.5rem;
   }
   
   .dark {
-    /* Material UI inspired dark theme with SDG colors */
+    /* SDG flat colors for dark theme with improved text readability */
     --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --foreground: 0 0% 100%;  /* Pure white for better text readability */
     
     --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted-foreground: 210 30% 85%;  /* Brightened for better visibility */
     
     --accent: 26 98% 57%; /* SDG Orange #FD6925 */
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 0 0% 100%;
     
     --popover: 222 45% 7%;
-    --popover-foreground: 210 40% 98%;
+    --popover-foreground: 0 0% 100%;
     
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
+    --border: 217 32% 25%;  /* Slightly brighter for better visibility */
+    --input: 217 32% 25%;
     
     --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 0 0% 100%;
     
-    --primary: 207 70% 45%; /* SDG Blue #00689D, brightened for dark mode */
+    --primary: 201 100% 35%; /* SDG Blue #00689D, brightened for dark mode */
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 120 40% 45%; /* SDG Green #4C9F38, brightened for dark mode */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 120 47% 40%; /* SDG Green #4C9F38, brightened for dark mode */
+    --secondary-foreground: 0 0% 100%;
     
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 41%;  /* Brighter red for better visibility */
+    --destructive-foreground: 0 0% 100%;
     
-    --ring: 217 32% 17%;
+    --ring: 217 32% 30%;
     
     --radius: 0.5rem;
   }

@@ -29,7 +29,7 @@ const Hero = () => {
       
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-[#00689D]/30 to-black/70 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-[#00689D]/20 to-black/60 z-10"></div>
         <video
           className="w-full h-full object-cover"
           autoPlay
@@ -39,10 +39,14 @@ const Hero = () => {
           poster="https://via.placeholder.com/1920x1080?text=Convention+Video+Placeholder"
         >
           <source 
+            src="https://videos.pexels.com/video-files/27946985/12269404_2320_1080_30fps.mp4" 
+            type="video/mp4" 
+          />
+          {/* Fallback sources */}
+          <source 
             src="https://static.videezy.com/system/resources/previews/000/051/528/original/data_analytics.mp4" 
             type="video/mp4" 
           />
-          {/* Fallback source */}
           <source 
             src="https://static.videezy.com/system/resources/previews/000/043/143/original/F-DATAP0016.mp4" 
             type="video/mp4" 
