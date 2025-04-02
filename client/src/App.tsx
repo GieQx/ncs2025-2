@@ -4,6 +4,8 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
+import ExhibitorListPage from "@/pages/ExhibitorListPage";
+import AttendeeGuidePage from "@/pages/AttendeeGuidePage";
 import { useEffect, useState } from "react";
 import ChatWidget from "@/components/chat/ChatWidget";
 
@@ -11,6 +13,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/exhibitors" component={ExhibitorListPage} />
+      <Route path="/attendee-guide" component={AttendeeGuidePage} />
       <Route component={NotFound} />
     </Switch>
   );

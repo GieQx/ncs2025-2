@@ -114,35 +114,35 @@
   }
   
   .dark {
-    /* SDG flat colors for dark theme with improved text readability */
-    --background: 222 47% 11%;
-    --foreground: 0 0% 100%;  /* Pure white for better text readability */
+    /* SDG flat colors for dark theme with enhanced text readability */
+    --background: 222 30% 10%;  /* Darker background for better contrast */
+    --foreground: 0 0% 100%;  /* Pure white for optimal text readability */
     
-    --muted: 217 33% 17%;
-    --muted-foreground: 210 30% 85%;  /* Brightened for better visibility */
+    --muted: 217 33% 20%;  /* Slightly lighter muted background */
+    --muted-foreground: 210 30% 90%;  /* Much brighter muted text for better visibility */
     
-    --accent: 26 98% 57%; /* SDG Orange #FD6925 */
+    --accent: 26 98% 62%; /* Brighter SDG Orange for better visibility in dark mode */
     --accent-foreground: 0 0% 100%;
     
-    --popover: 222 45% 7%;
+    --popover: 222 35% 12%;  /* Lighter popover background */
     --popover-foreground: 0 0% 100%;
     
-    --border: 217 32% 25%;  /* Slightly brighter for better visibility */
-    --input: 217 32% 25%;
+    --border: 217 32% 35%;  /* Much brighter borders for better visibility */
+    --input: 217 32% 35%;  /* Match border color */
     
-    --card: 222 47% 11%;
+    --card: 222 30% 12%;  /* Slightly lighter card background */
     --card-foreground: 0 0% 100%;
     
-    --primary: 201 100% 35%; /* SDG Blue #00689D, brightened for dark mode */
+    --primary: 201 100% 45%; /* Much brighter SDG Blue for dark mode */
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 120 47% 40%; /* SDG Green #4C9F38, brightened for dark mode */
+    --secondary: 120 60% 45%; /* Brighter SDG Green for dark mode */
     --secondary-foreground: 0 0% 100%;
     
-    --destructive: 0 72% 41%;  /* Brighter red for better visibility */
+    --destructive: 0 85% 50%;  /* Brighter red for better visibility */
     --destructive-foreground: 0 0% 100%;
     
-    --ring: 217 32% 30%;
+    --ring: 201 100% 50%;  /* Matching primary for better focus indicators */
     
     --radius: 0.5rem;
   }

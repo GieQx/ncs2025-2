@@ -76,8 +76,9 @@ const ChatWidget = () => {
 
   const handleToggleChat = () => {
     setIsOpen(!isOpen);
-    // Make sure terms are shown when chat is opened if not agreed yet
-    if (!termsAgreed) {
+    
+    // Always show terms when opening if not agreed yet
+    if (!isOpen && !termsAgreed) {
       setShowTerms(true);
     }
   };
