@@ -265,11 +265,11 @@ const ChatWidget = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {isOpen ? (
-        <div className="bg-white rounded-2xl shadow-xl w-80 md:w-96 transition-all transform origin-bottom-right border border-gray-200 overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 100px)' }}>
-          {/* Header */}
-          <div className="p-4 bg-gradient-to-r from-[#4C9F38] to-[#00689D] flex justify-between items-center flex-shrink-0">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+        <div className="bg-background rounded-2xl shadow-xl w-80 md:w-96 transition-all transform origin-bottom-right border border-border overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 100px)' }}>
+          {/* Header - Material UI Style */}
+          <div className="p-4 bg-gradient-to-r from-[#4C9F38] to-[#00689D] flex justify-between items-center flex-shrink-0 shadow-sm rounded-t-2xl">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center shadow-sm">
                 <Database className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -281,18 +281,18 @@ const ChatWidget = () => {
               {/* Reset Chat Button */}
               <button 
                 onClick={handleResetChat}
-                className="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                className="text-white/80 hover:text-white w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors duration-200"
                 aria-label="Reset conversation"
                 title="Reset conversation"
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="w-5 h-5" />
               </button>
               <button 
                 onClick={handleToggleChat}
-                className="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                className="text-white/80 hover:text-white w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors duration-200"
                 aria-label="Minimize chat"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -304,7 +304,7 @@ const ChatWidget = () => {
                 <div className={`${
                   message.isUser 
                     ? 'bg-[#00689D] text-white' 
-                    : 'bg-gray-100 text-gray-800'
+                    : 'bg-muted text-foreground'
                   } rounded-2xl p-3 max-w-[90%] shadow-sm`}>
                   <p className="text-sm whitespace-pre-wrap">{message.text}</p>
                   
@@ -349,10 +349,10 @@ const ChatWidget = () => {
             {/* Loading indicator */}
             {isLoading && (
               <div className="mb-4 flex justify-start">
-                <div className="bg-gray-100 rounded-2xl p-3 max-w-[90%]">
+                <div className="bg-muted rounded-2xl p-3 max-w-[90%] shadow-sm">
                   <div className="flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
-                    <span className="text-sm text-gray-500">Searching for information...</span>
+                    <Loader2 className="w-4 h-4 text-muted-foreground animate-spin" />
+                    <span className="text-sm text-muted-foreground">Searching for information...</span>
                   </div>
                 </div>
               </div>
@@ -363,8 +363,8 @@ const ChatWidget = () => {
           
           {/* Suggested Questions */}
           {messages.length === 1 && !isLoading && (
-            <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+            <div className="px-4 py-2 bg-muted/50 border-t border-border">
+              <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
                 <Lightbulb className="w-3 h-3" />
                 <span>Suggested questions:</span>
               </p>
@@ -373,7 +373,7 @@ const ChatWidget = () => {
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestion(question)}
-                    className="text-xs bg-white border border-gray-200 text-gray-700 rounded-full px-3 py-1 hover:bg-gray-100 transition-colors"
+                    className="text-xs bg-background border border-border text-foreground rounded-full px-3 py-1 hover:bg-muted transition-colors duration-200"
                   >
                     {question}
                   </button>
@@ -383,13 +383,13 @@ const ChatWidget = () => {
           )}
           
           {/* Input Form */}
-          <div className="p-4 border-t border-gray-200 flex-shrink-0 bg-white">
+          <div className="p-4 border-t border-border flex-shrink-0 bg-background">
             <form onSubmit={handleSendMessage} className="relative">
               <input 
                 ref={inputRef}
                 type="text" 
                 placeholder="Ask about the convention..." 
-                className="w-full bg-gray-100 border-none rounded-full px-4 py-3 pr-24 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none"
+                className="w-full bg-muted border-none rounded-full px-4 py-3 pr-24 text-sm focus:ring-2 focus:ring-[#00689D]/30 focus:outline-none text-foreground"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={isLoading || isListening}
@@ -402,8 +402,8 @@ const ChatWidget = () => {
                 className={`absolute right-12 top-1/2 -translate-y-1/2 ${
                   isListening 
                     ? 'bg-[#E5243B] text-white animate-pulse' 
-                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                } rounded-full w-8 h-8 flex items-center justify-center transition-colors`}
+                    : 'bg-muted-foreground/20 text-muted-foreground hover:bg-muted-foreground/30'
+                } rounded-full w-9 h-9 flex items-center justify-center transition-colors duration-200 shadow-sm`}
                 disabled={isLoading}
                 aria-label={isListening ? "Stop voice input" : "Start voice input"}
                 title={isListening ? "Stop voice input" : "Start voice input"}
@@ -414,7 +414,7 @@ const ChatWidget = () => {
               {/* Send Button */}
               <button 
                 type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00689D] text-white rounded-full w-8 h-8 flex items-center justify-center disabled:bg-gray-300"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00689D] text-white rounded-full w-9 h-9 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md disabled:bg-muted-foreground/30 disabled:shadow-none"
                 disabled={isLoading || !input.trim() || isListening}
               >
                 {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}

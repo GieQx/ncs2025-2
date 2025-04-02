@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Material UI inspired light theme with SDG colors */
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
     
@@ -39,34 +40,35 @@
   }
   
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    /* Material UI inspired dark theme with SDG colors */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
     
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
     
     --accent: 26 98% 57%; /* SDG Orange #FD6925 */
     --accent-foreground: 210 40% 98%;
     
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --popover: 222 45% 7%;
+    --popover-foreground: 210 40% 98%;
     
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
     
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
     
-    --primary: 207 70% 35%; /* SDG Blue #00689D, slightly brightened */
-    --primary-foreground: 222.2 47.4% 1.2%;
+    --primary: 207 70% 45%; /* SDG Blue #00689D, brightened for dark mode */
+    --primary-foreground: 0 0% 100%;
     
-    --secondary: 120 40% 45%; /* SDG Green #4C9F38, slightly brightened */
+    --secondary: 120 40% 45%; /* SDG Green #4C9F38, brightened for dark mode */
     --secondary-foreground: 210 40% 98%;
     
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     
-    --ring: 216 34% 17%;
+    --ring: 217 32% 17%;
     
     --radius: 0.5rem;
   }
